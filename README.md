@@ -44,5 +44,5 @@ trivy:
 To bootstrap, apply the bootstrap.yaml file:
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/kloia/argocd-bootstrapper/main/bootstrap.yaml
+kubectl apply -f https://raw.githubusercontent.com/kloia/argocd-eks-bootstrapper/main/bootstrap.yaml
 ```

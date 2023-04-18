@@ -1,0 +1,18 @@
+# Default values for bootstrap.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+ssl:
+  enabled: false
+  domain: "kloia.com" 
+kyverno:
+  enable: false  
+logging:
+  enable: false
+monitoring:
+  enable: false
+  pdkey:
+  storageSize: 50Gi
+  retention: 5d  
+trivy:
+  enable: true
