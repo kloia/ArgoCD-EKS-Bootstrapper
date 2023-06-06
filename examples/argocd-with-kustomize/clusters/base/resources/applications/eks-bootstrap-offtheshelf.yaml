@@ -1,20 +1,22 @@
-# External Secrets Operator
+# ArgoCD App of Apps pattern that manages the cluster
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets-operator
+  name: eks-bootstrap
   namespace: argocd
   labels:
-    name: external-secrets-operator
+    name: eks-bootstrap
 spec:
   source:
+    # TODO: secret for repo connection
     repoURL: "https://github.com/kloia/ArgoCD-EKS-Bootstrapper.git"
     targetRevision: kustomize
-    path: apps/external-secrets-operator/base
+    path: bootstrap/argocd-with-kustomize/clusters/base
   destination:
-    namespace: external-secrets
     server: https://kubernetes.default.svc
+    namespace: argocd
   project: default
   syncPolicy:
     automated:
       selfHeal: true
+

@@ -10,11 +10,11 @@ patches:
   # Patch the app-of-apps path to point to this cluster overlay
   - target:
       kind: Application
-      name: app-of-apps
+      name: cluster-app-of-apps
     patch: |
       - op: replace
         path: /spec/source/path
-        value: clusters/overlays/cluster-foo
+        value: examples/argocd-with-kustomize/clusters/overlays/cluster-foo
 
 components:
   - ../../components/argocd-enable-create-namespace

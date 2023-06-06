@@ -1,0 +1,22 @@
+# ArgoCD App of Apps pattern that manages the cluster
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eks-bootstrap
+  namespace: argocd
+  labels:
+    name: eks-bootstrap
+spec:
+  source:
+    # TODO: secret for repo connection
+    repoURL: "https://github.com/kloia/ArgoCD-EKS-Bootstrapper.git"
+    targetRevision: kustomize
+    path: examples/apps/eks-bootstrap/base
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+

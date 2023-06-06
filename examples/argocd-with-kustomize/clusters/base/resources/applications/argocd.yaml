@@ -1,17 +1,21 @@
-# Cert Manager
+# ArgoCD itself
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: argocd
   namespace: argocd
   labels:
-    name: cert-manager
+    name: argocd
 spec:
   source:
     repoURL: "https://github.com/kloia/ArgoCD-EKS-Bootstrapper.git"
     targetRevision: kustomize
-    path: apps/cert-manager/base
+    path: examples/argocd-with-kustomize/apps/argocd/base
   destination:
-    namespace: cert-manager
     server: https://kubernetes.default.svc
+    namespace: argocd
   project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
