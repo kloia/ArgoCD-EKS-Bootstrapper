@@ -14,7 +14,7 @@ patches:
     patch: |
       - op: replace
         path: /spec/source/path
-        value: examples/argocd-with-kustomize/clusters/overlays/cluster-foo
+        value: kustomize/examples/argocd-with-kustomize/clusters/overlays/cluster-foo
 
 components:
   - ../../components/argocd-enable-create-namespace

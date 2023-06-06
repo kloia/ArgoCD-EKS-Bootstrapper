@@ -1,22 +1,16 @@
-# ArgoCD App of Apps pattern that manages the cluster
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: eks-bootstrap
+  name: kuard-staging
   namespace: argocd
   labels:
-    name: eks-bootstrap
+    name: kuard-staging
 spec:
   source:
-    # TODO: secret for repo connection
     repoURL: "https://github.com/kloia/ArgoCD-EKS-Bootstrapper.git"
     targetRevision: kustomize
-    path: bootstrap/argocd-with-kustomize/clusters/base
+    path: kustomize/examples/argocd-with-kustomize/apps/kuard/overlays/staging-purple
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: kuard-staging
   project: default
-  syncPolicy:
-    automated:
-      selfHeal: true
-
