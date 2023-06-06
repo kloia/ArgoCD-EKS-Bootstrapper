@@ -1,0 +1,21 @@
+# ArgoCD itself
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  labels:
+    name: argocd
+spec:
+  source:
+    repoURL: "https://github.com/kloia/ArgoCD-EKS-Bootstrapper.git"
+    targetRevision: kustomize
+    path: apps/argocd/base
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true

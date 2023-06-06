@@ -1,0 +1,15 @@
+# editors
+.idea/
+.vscode/
+.vs/
+
+# os
+.DS_Store
+thumbs.db
+Thumbs.db
+
+# direnv
+.envrc
+
+# environment files
+.env

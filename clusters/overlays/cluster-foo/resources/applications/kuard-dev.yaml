@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kuard-dev
+  namespace: argocd
+  labels:
+    name: kuard-dev
+spec:
+  source:
+    repoURL: "https://github.com/kloia/ArgoCD-EKS-Bootstrapper.git"
+    targetRevision: kustomize
+    path: apps/kuard/overlays/dev-green
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kuard-dev
+  project: default
