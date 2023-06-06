@@ -3,6 +3,5 @@ kind: Kustomization
 
 resources:
   - resources/applications/app-of-apps.yaml
-  - resources/applications/argocd.yaml
   - resources/applications/cert-manager.yaml
   - resources/applications/external-secrets-operator.yaml
