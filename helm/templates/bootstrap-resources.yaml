@@ -14,8 +14,8 @@ spec:
     targetRevision: HEAD
     helm:
       parameters:
-        - name: ssl.enabled
-          value: {{ .Values.ssl.enabled }}
+        - name: ssl.enabled 
+          value: {{ .Values.ssl.enabled | quote }}
   syncPolicy:
     automated:
       selfHeal: true
