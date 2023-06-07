@@ -20,3 +20,9 @@ metricsServer:
   enable: true
 certManager:
   enable: true
+rancher:
+  hostname: 'rancher.kloia.com'
+  tls: 'external'
+  bootstrapPassword: 'pass123'
+  ingressClassName: 'nginx'
+  enable: false
