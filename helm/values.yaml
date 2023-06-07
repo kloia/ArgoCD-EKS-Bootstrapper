@@ -23,11 +23,7 @@ certManager:
 rancher:
   enable: false
   values:
-  - name: "hostname"
-    value: "rancher.kloia.com"
-  - name: "tls"
-    value: "external"
-  - name: "bootstrapPassword"
-    value: "admin"
-  - name: "ingress.ingressClassName"
-    value: "nginx"
+    hostname: "rancher.kloia.com"
+    tls: "external"
+    bootstrapPassword: "admin"
+    ingress.ingressClassName: "nginx"

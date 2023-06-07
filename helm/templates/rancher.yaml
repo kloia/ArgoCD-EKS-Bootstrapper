@@ -16,9 +16,9 @@ spec:
     {{- if .Values.rancher.values }}
     helm:
       parameters:
-      {{- range $v := .Values.rancher.values }}
-        - name: {{ $v.name }}
-          value: {{ $v.value }}
+      {{- range $k, $v := .Values.rancher.values }}
+        - name: {{ $k }}
+          value: {{ $v }}
       {{- end }}
     {{- end }}
     chart: rancher
