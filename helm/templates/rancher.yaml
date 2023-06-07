@@ -13,16 +13,14 @@ spec:
   source:
     repoURL: 'https://releases.rancher.com/server-charts/stable'
     targetRevision: v2.7.4
+    {{- if .Values.rancher.values }}
     helm:
       parameters:
-        - name: hostname
-          value: {{ .Values.rancher.hostname }}
-        - name: tls
-          value: {{ .Values.rancher.tls }}
-        - name: bootstrapPassword
-          value: {{ .Values.rancher.bootstrapPassword }}
-        - name: ingress.ingressClassName
-          value: {{ .Values.rancher.ingressClassName }}
+      {{- range $v := .Values.rancher.values }}
+        - name: {{ $v.name }}
+          value: {{ $v.value }}
+      {{- end }}
+    {{- end }}
     chart: rancher
   destination:
     server: 'https://kubernetes.default.svc'
