@@ -1,4 +1,4 @@
-{{- if .Values.metrics-server.enable }}
+{{- if .Values.metricsServer.enable }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:

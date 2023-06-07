@@ -16,7 +16,7 @@ monitoring:
   retention: 5d  
 trivy:
   enable: true
-metrics-server:
+metricsServer:
   enable: true
-cert-manager:
+certManager:
   enable: true
