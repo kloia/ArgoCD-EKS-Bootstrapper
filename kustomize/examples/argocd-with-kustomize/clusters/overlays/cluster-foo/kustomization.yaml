@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - resources/applications/kuard-dev.yaml
+  - resources/applications/kuard-staging.yaml
+
+patches:
+  # Patch the app-of-apps path to point to this cluster overlay
+  - target:
+      kind: Application
+      name: cluster-app-of-apps
+    patch: |
+      - op: replace
+        path: /spec/source/path
+        value: kustomize/examples/argocd-with-kustomize/clusters/overlays/cluster-foo
+
+components:
+  - ../../components/argocd-enable-create-namespace

@@ -1,0 +1,6 @@
+# When using Helm through Kustomize, it generates a charts/ dir next to kustomization.yaml
+# to store the fetched Helm Charts in .tgz and unpacked formats.
+#
+# Unless it's for charts you author/vendor yourself, charts shouldn't be committed.
+# In such case, add overrides to this gitignore explicitly, per chart.
+charts/

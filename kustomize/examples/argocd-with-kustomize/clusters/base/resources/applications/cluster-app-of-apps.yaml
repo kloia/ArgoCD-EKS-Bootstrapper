@@ -1,0 +1,22 @@
+# ArgoCD App of Apps pattern that manages the cluster
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: argocd
+  labels:
+    name: app-of-apps
+spec:
+  source:
+    repoURL: "https://github.com/kloia/ArgoCD-EKS-Bootstrapper.git"
+    targetRevision: main
+    # make sure to patch this according to the cluster overlay
+    path: kustomize/examples/argocd-with-kustomize/clusters/base
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+

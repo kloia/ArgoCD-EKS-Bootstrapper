@@ -1,0 +1,17 @@
+# Patches all Applications to enable create namespace if missing
+
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+patches:
+  - target:
+      kind: Application
+    patch: |
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: not-important
+      spec:
+        syncPolicy:
+          syncOptions:
+            - CreateNamespace=true

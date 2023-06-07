@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - resources/applications/cluster-app-of-apps.yaml
+  - resources/applications/eks-bootstrap-offtheshelf.yaml
+  # - resources/applications/eks-bootstrap-vendored.yaml
+  - resources/applications/external-secrets-operator.yaml

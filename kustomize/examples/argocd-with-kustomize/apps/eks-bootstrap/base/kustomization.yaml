@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - github.com/kloia/ArgoCD-EKS-Bootstrapper.git/kustomize/bootstrap/base?ref=kustomize
+
+# add new applications
+# remove application
+# patch values
+# change cluster destinations
+# etc.

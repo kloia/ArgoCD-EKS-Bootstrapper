@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kuard-staging
+  namespace: argocd
+  labels:
+    name: kuard-staging
+spec:
+  source:
+    repoURL: "https://github.com/kloia/ArgoCD-EKS-Bootstrapper.git"
+    targetRevision: kustomize
+    path: kustomize/examples/argocd-with-kustomize/apps/kuard/overlays/staging-purple
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kuard-staging
+  project: default
