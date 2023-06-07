@@ -19,7 +19,7 @@ spec:
           value: {{ .Values.rancher.hostname }}
         - name: tls
           value: {{ .Values.rancher.tls }}
-        - name: boostrapPassword
+        - name: bootstrapPassword
           value: {{ .Values.rancher.bootstrapPassword }}
         - name: ingress.ingressClassName
           value: {{ .Values.rancher.ingressClassName }}
