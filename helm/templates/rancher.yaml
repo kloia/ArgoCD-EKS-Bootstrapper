@@ -1,0 +1,27 @@
+{{- if .Values.rancher.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://releases.rancher.com/server-charts/stable'
+    targetRevision: v2.7.4
+    helm:
+      values: |
+        {{ .Values.rancher.values | toYaml | indent 8 | trim}}
+    chart: rancher
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-system
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

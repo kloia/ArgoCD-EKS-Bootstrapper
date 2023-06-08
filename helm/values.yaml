@@ -26,4 +26,10 @@ certManager:
       servicemonitor:
         enabled: "false"
         honorLabels: "false"
-
+rancher:
+  enable: false
+  values:
+    hostname: "rancher.kloia.com"
+    tls: "external"
+    bootstrapPassword: "admin"
+    ingress.ingressClassName: "nginx"
