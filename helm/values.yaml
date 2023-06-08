@@ -32,4 +32,5 @@ rancher:
     hostname: "rancher.kloia.com"
     tls: "external"
     bootstrapPassword: "admin"
-    ingress.ingressClassName: "nginx"
+    ingress:
+      ingressClassName: "nginx"
