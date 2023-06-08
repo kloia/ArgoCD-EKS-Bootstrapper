@@ -14,13 +14,8 @@ spec:
     repoURL: 'https://charts.jetstack.io'
     targetRevision: v1.11.0
     helm:
-      parameters:
-        - name: installCRDs
-          value: 'true'
-        - name: prometheus.servicemonitor.enabled
-          value: 'false'
-        - name: prometheus.servicemonitor.honorLabels
-          value: 'false'
+      values: |
+        {{ .Values.certManager.values | toYaml | indent 8 | trim}}
     chart: cert-manager
   destination:
     server: 'https://kubernetes.default.svc'
