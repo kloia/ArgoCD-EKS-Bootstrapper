@@ -20,6 +20,12 @@ metricsServer:
   enable: true
 certManager:
   enable: true
+  values:
+    installCRDs: "true"
+    prometheus:
+      servicemonitor:
+        enabled: "false"
+        honorLabels: "false"
 rancher:
   enable: false
   values:

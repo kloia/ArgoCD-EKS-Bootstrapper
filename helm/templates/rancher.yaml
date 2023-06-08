@@ -13,14 +13,9 @@ spec:
   source:
     repoURL: 'https://releases.rancher.com/server-charts/stable'
     targetRevision: v2.7.4
-    {{- if .Values.rancher.values }}
     helm:
-      parameters:
-      {{- range $k, $v := .Values.rancher.values }}
-        - name: {{ $k }}
-          value: {{ $v }}
-      {{- end }}
-    {{- end }}
+      values: |
+        {{ .Values.rancher.values | toYaml | indent 8 | trim}}
     chart: rancher
   destination:
     server: 'https://kubernetes.default.svc'
