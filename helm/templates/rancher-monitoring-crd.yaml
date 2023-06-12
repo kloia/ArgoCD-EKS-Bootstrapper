@@ -1,0 +1,34 @@
+{{- if .Values.rancherMonitoringCrd.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher-monitoring-crd
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-monitoring-system
+  project: default
+  source:
+    repoURL: https://github.com/rancher/charts.git
+    path: charts/rancher-monitoring-crd/{{ .Values.rancherMonitoringCrd.version }}/
+    targetRevision: {{ .Values.rancherMonitoringCrd.chartsRepoTargetRevision }}
+    {{- if .Values.rancherMonitoringCrd.values }}
+    helm:
+      {{- if .Values.rancherMonitoringCrd.values }}
+      values: |
+        {{ .Values.rancherMonitoringCrd.values | toYaml | indent 8 | trim}}
+      {{- end }}
+    {{- end }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
