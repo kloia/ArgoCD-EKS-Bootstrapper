@@ -18,6 +18,9 @@ trivy:
   enable: true
 metricsServer:
   enable: true
+  values: 
+    hostNetwork:
+      enabled: true
 certManager:
   enable: true
   values:
