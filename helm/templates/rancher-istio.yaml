@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: https://github.com/rancher/charts.git
     path: charts/rancher-istio/{{ .Values.rancherIstio.version }}/
-    targetRevision: {{ .Values.rancherIstio.chartsRepoTargetRevision }}
+    targetRevision: release-{{ .Values.rancher.targetRevision }}
     {{- if .Values.rancherIstio.values }}
     helm:
       {{- if .Values.rancherIstio.values }}
