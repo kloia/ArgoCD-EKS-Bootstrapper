@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: https://github.com/rancher/charts.git
     path: charts/rancher-monitoring-crd/{{ .Values.rancherMonitoringCrd.version }}/
-    targetRevision: {{ .Values.rancherMonitoringCrd.chartsRepoTargetRevision }}
+    targetRevision: release-{{ .Values.rancher.targetRevision }}
     {{- if .Values.rancherMonitoringCrd.values }}
     helm:
       {{- if .Values.rancherMonitoringCrd.values }}

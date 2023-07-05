@@ -31,6 +31,7 @@ certManager:
         honorLabels: "false"
 rancher:
   enable: false
+  targetRevision: v2.7.4
   values:
     hostname: "rancher.kloia.com"
     tls: "external"
@@ -39,16 +40,13 @@ rancher:
       ingressClassName: "nginx"
 rancherMonitoringCrd:
   enable: false
-  chartsRepoTargetRevision: "dev-v2.7"
-  version: "102.0.1+up40.1.2"
+  version: "102.0.0+up40.1.2"
 rancherMonitoring:
   enable: false
-  chartsRepoTargetRevision: "release-v2.7"
   version: "102.0.0+up40.1.2"
 rancherIstio:
   enable: false
-  chartsRepoTargetRevision: "dev-v2.7"
-  version: "102.0.1+up40.1.2"
+  version: "102.2.0+up1.17.2"
   values:
     tracing:
       enabled: true

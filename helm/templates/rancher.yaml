@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: 'https://releases.rancher.com/server-charts/stable'
-    targetRevision: v2.7.4
+    targetRevision: {{ .Values.rancher.targetRevision }}
     helm:
       values: |
         {{ .Values.rancher.values | toYaml | indent 8 | trim}}
