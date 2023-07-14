@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: 'https://charts.jetstack.io'
-    targetRevision: v1.11.0
+    targetRevision: v1.12.2
     helm:
       values: |
         {{ .Values.certManager.values | toYaml | indent 8 | trim}}
