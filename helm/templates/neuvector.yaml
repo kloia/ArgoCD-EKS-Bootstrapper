@@ -1,0 +1,34 @@
+{{- if .Values.neuvector.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: neuvector
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "8"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-neuvector-system
+  project: default
+  source:
+    repoURL: https://github.com/rancher/charts.git
+    path: charts/neuvector/{{ .Values.neuvector.version }}/
+    targetRevision: release-{{ .Values.neuvector.targetRevision }}
+    {{- if .Values.neuvector.values }}
+    helm:
+      {{- if .Values.neuvector.values }}
+      values: |
+        {{ .Values.neuvector.values | toYaml | indent 8 | trim}}
+      {{- end }}
+    {{- end }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
