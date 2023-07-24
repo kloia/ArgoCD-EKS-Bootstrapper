@@ -50,3 +50,15 @@ rancherIstio:
   values:
     tracing:
       enabled: true
+neuvector:
+  enable: false
+  version: "102.0.0+up2.4.2"
+  targetRevision: v2.7
+  values:
+    containerd:
+      enabled: true
+      path: /run/containerd/containerd.sock
+    global:
+      cattle:
+        url: "https://rancher.kloia.com"
+    
