@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The argocd-eks-bootstrapper leverages the [Argo CD's App of Apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/) pattern on `AWS Elastic Kubernetes Service` by using Helm.
+The argocd-eks-bootstrapper leverages the [Argo CD's App of Apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/) pattern on `AWS Elastic Kubernetes Service` by using Helm and Kustomize.
 
 ## Bootstrap Directory Structure
 The following is the directory structure for the bootstrap process:
