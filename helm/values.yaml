@@ -61,4 +61,8 @@ neuvector:
     global:
       cattle:
         url: "https://rancher.kloia.com"
+rancherLogging:
+  enable: false
+  version: "102.0.0+up3.17.10"
+  targetRevision: release-v2.7
     
