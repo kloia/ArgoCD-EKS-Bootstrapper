@@ -21,7 +21,7 @@ spec:
     helm:
       {{- if .Values.rancherLogging.values }}
       values: |
-        {{ .Values.rancherLoggingCrd.values | toYaml | indent 8 | trim}}
+        {{ .Values.rancherLogging.values | toYaml | indent 8 | trim}}
       {{- end }}
     {{- end }}
   syncPolicy:
