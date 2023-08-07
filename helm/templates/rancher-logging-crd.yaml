@@ -15,7 +15,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/rancher/charts.git
-    path: charts/rancher-logging-crd/{{ .Values.rancherLoggingCrd.version }}/
+    path: charts/rancher-logging-crd/{{ .Values.rancherLogging.version }}/
     targetRevision: release-{{ .Values.rancher.targetRevision }}
     {{- if .Values.rancherLogging.values }}
     helm:
