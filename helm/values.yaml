@@ -38,6 +38,12 @@ rancher:
     bootstrapPassword: "admin"
     ingress:
       ingressClassName: "nginx"
+rancherBackupCrd:
+  enable: false
+  version: "102.0.0+up3.1.0"
+rancherBackup:
+  enable: false
+  version: "102.0.0+up3.1.0"
 rancherMonitoringCrd:
   enable: false
   version: "102.0.0+up40.1.2"

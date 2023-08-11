@@ -1,0 +1,33 @@
+{{- if .Values.rancherBackup.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher-backup
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-resources-system
+  project: default
+  source:
+    repoURL: https://github.com/rancher/charts.git
+    path: charts/rancher-backup/{{ .Values.rancherBackup.version }}/
+    targetRevision: release-{{ .Values.rancher.targetRevision }}
+    {{- if .Values.rancherBackup.values }}
+    helm:
+      {{- if .Values.rancherBackup.values }}
+      values: |
+        {{ .Values.rancherBackup.values | toYaml | indent 8 | trim}}
+      {{- end }}
+    {{- end }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
