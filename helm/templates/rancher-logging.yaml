@@ -1,0 +1,33 @@
+{{- if .Values.rancherLogging.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher-logging
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "9"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-logging-system
+  project: default
+  source:
+    repoURL: https://github.com/rancher/charts.git
+    path: charts/rancher-logging/{{ .Values.rancherLogging.version }}/
+    targetRevision: release-{{ .Values.rancherLogging.targetRevision }}
+    {{- if .Values.rancherLogging.values }}
+    helm:
+      {{- if .Values.rancherLogging.values }}
+      values: |
+        {{ .Values.rancherLogging.values | toYaml | indent 8 | trim}}
+      {{- end }}
+    {{- end }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
