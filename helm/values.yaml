@@ -71,4 +71,15 @@ rancherLogging:
   enable: false
   version: "102.0.0+up3.17.10"
   targetRevision: v2.7
-    
+argoWorkflow:
+  enable: false
+  targetRevision: "0.33.2"
+  values:
+    server:
+      ingress:
+        enabled: true
+        ingressClassName: "nginx"
+        hosts:
+        - workflows.kloia.com
+      extraArgs:
+      - --auth-mode=server
