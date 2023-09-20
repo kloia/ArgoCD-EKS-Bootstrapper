@@ -1,0 +1,18 @@
+{{- if .Values.hivemq.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hivemq
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  source:
+    repoURL: "https://github.com/hivemq/helm-charts.git"
+    path: charts/hivemq-operator
+    targetRevision: hivemq-operator-0.11.24
+    helm:
+      values: |
+        {{ .Values.hivemq.values | toYaml | indent 8 | trim }}
+{{- end }}
+  
