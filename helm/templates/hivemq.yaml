@@ -1,0 +1,75 @@
+{{- if .Values.hivemq.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hivemq
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  source:
+    repoURL: "https://github.com/hivemq/helm-charts.git"
+    path: charts/hivemq-operator
+    targetRevision: hivemq-operator-0.11.24
+    helm:
+      values: |
+        {{ .Values.hivemq.values | toYaml | indent 8 | trim }}
+        hivemq:
+          additionalVolumeMounts: 
+            - name: persistent-storage
+            mountPath: /data
+          additionalVolumes: 
+            - name: persistent-storage
+              persistentVolumeClaim:
+              claimName: hivemq-efs-claim
+          volumeClaimTemplates:
+            - kind: PersistentVolumeClaim
+              apiVersion: v1
+              metadata:
+                name: hivemq-efs-claim
+              spec:
+                storageClassName: efs-sc
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 100Gi
+                volumeMode: Filesystem
+
+          initContainers:
+            - args:
+              - -c
+              - |
+                echo "Copying authentication hivemq extension jar file..."
+                ls -al /app
+                pwd
+                cp -r /app/AuthHiveMqExtension /conf-override/extensions/AuthHiveMqExtension
+                cp /app/config.json /conf-override/config.json
+              command:
+              - sh
+              image: 015394640429.dkr.ecr.eu-west-1.amazonaws.com/trumore-hivemq-alpine:latest
+              name: authextension-container
+              securityContext:
+                allowPrivilegeEscalation: true
+                privileged: true
+                runAsNonRoot: false
+                runAsUser: 0
+              volumeMounts:
+              - mountPath: /conf-override
+                name: conf-override
+          secrets:
+          - name: hivemq-jks
+            path: /opt/hivemq/jks
+          configMaps:
+          - name: hivemq-config
+            path: /opt/hivemq/conf
+          - name: hivemq-license
+            path: /opt/hivemq/license
+          - name: kafka-configuration
+            path: /opt/hivemq/extensions/hivemq-kafka-extension
+          extensions:
+          - name: hivemq-kafka-extension
+            extensionUri: preinstalled
+            enabled: true
+{{- end }}
+  

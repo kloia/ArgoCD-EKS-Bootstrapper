@@ -83,3 +83,6 @@ argoWorkflow:
         - workflows.kloia.com
       extraArgs:
       - --auth-mode=server
+hivemq:
+  enable: false
+  values:
