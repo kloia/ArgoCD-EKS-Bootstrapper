@@ -14,7 +14,7 @@ spec:
     namespace: argocd
   project: default
   source:
-    repoURL: https://argoproj.github.io/argo-helm
+    repoURL: https://github.com/argoproj/argo-helm.git
     path: charts/argo-workflows
     targetRevision: argo-workflows-{{ .Values.argoWorkflow.targetRevision }}
     {{- if .Values.argoWorkflow.values }}
