@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: https://github.com/rancher/charts.git
     path: charts/rancher-backup-crd/{{ .Values.rancherBackupCrd.version }}/
-    targetRevision: release-{{ .Values.rancher.targetRevision }}
+    targetRevision: release-{{ .Values.rancherBackup.targetRevision }}
     {{- if .Values.rancherBackupCrd.values }}
     helm:
       {{- if .Values.rancherBackupCrd.values }}
