@@ -31,7 +31,7 @@ certManager:
         honorLabels: "false"
 rancher:
   enable: false
-  targetRevision: v2.7.4
+  targetRevision: v2.7.9
   values:
     hostname: "rancher.kloia.com"
     tls: "external"
