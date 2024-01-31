@@ -86,3 +86,7 @@ argoWorkflow:
 hivemq:
   enable: false
   values:
+atlantis:
+  enable: true
+  targetRevision: "4.19.0"
+  values:
