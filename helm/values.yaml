@@ -87,6 +87,9 @@ hivemq:
   enable: false
   values:
 atlantis:
-  enable: true
+  enable: false
   targetRevision: "4.19.0"
   values:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
