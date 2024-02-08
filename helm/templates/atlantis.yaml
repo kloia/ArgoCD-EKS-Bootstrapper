@@ -1,0 +1,32 @@
+{{- if .Values.atlantis.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: atlantis
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: atlantis
+  project: default
+  source:
+    repoURL: https://runatlantis.github.io/helm-charts
+    chart: atlantis
+    targetRevision: {{ .Values.atlantis.targetRevision }}
+    {{- if .Values.atlantis.values }}
+    helm:
+      values: |
+        {{ .Values.atlantis.values | toYaml | indent 8 | trim}}
+    {{- end }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
