@@ -93,3 +93,11 @@ atlantis:
     ingress:
       enabled: true
       ingressClassName: nginx
+externalSecrets:
+  enable: false
+  targetRevision: "0.9.14"
+  values:
+    serviceAccount:
+      name: "external-secrets"
+      annotations:
+        eks.amazonaws.com/role-arn: "fake_irsa_role_arn"
