@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: /helm
+    path: helm
     repoURL: https://github.com/kloia/argocd-eks-bootstrapper
     targetRevision: HEAD
   syncPolicy:
