@@ -47,9 +47,11 @@ rancherBackup:
 rancherMonitoringCrd:
   enable: false
   version: "102.0.0+up40.1.2"
+  targetRevision: v2.7
 rancherMonitoring:
   enable: false
   version: "102.0.0+up40.1.2"
+  targetRevision: v2.7
 rancherIstio:
   enable: false
   version: "102.2.0+up1.17.2"
