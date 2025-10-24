@@ -15,8 +15,9 @@ spec:
   project: default
   source:
     repoURL: https://github.com/rancher/charts.git
-    path: charts/neuvector/{{ .Values.neuvector.version }}/
-    targetRevision: release-{{ .Values.neuvector.targetRevision }}
+    path: charts/neuvector/{{ default "102.0.0+up2.4.2" .Values.neuvector.version }}/
+    targetRevision: release-{{ default "v2.7" .Values.neuvector.targetRevision }}
+#    targetRevision: release-{{ .Values.neuvector.targetRevision }}
     {{- if .Values.neuvector.values }}
     helm:
       {{- if .Values.neuvector.values }}

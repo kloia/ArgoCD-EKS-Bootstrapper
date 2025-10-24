@@ -14,7 +14,8 @@ spec:
   source:
     chart: metrics-server
     repoURL: https://kubernetes-sigs.github.io/metrics-server/
-    targetRevision: 3.9.0
+    targetRevision: {{ default "v3.9.0" .Values.metricsServer.targetRevision }}
+#    targetRevision: 3.9.0
     helm:
       values: |
         {{ .Values.metricsServer.values | toYaml | indent 8 | trim}}
