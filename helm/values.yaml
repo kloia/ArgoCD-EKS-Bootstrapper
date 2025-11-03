@@ -6,18 +6,23 @@ ssl:
   enabled: false
   domain: "kloia.com" 
 kyverno:
-  enable: false  
+  enable: false
+  targetRevision: "2.7.2"
 logging:
   enable: false
+  targetRevision: "2.9.10"
 monitoring:
   enable: false
+  targetRevision: "45.10.1"
   pdkey:
   storageSize: 50Gi
   retention: 5d  
 trivy:
   enable: true
+  targetRevision: "0.13.0"
 metricsServer:
   enable: true
+  targetRevision: "3.9.0"
   values: 
     hostNetwork:
       enabled: true
