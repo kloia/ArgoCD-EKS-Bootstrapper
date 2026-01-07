@@ -1,0 +1,35 @@
+{{- if .Values.sonarqube.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sonarqube
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: sonarqube
+    repoURL: https://SonarSource.github.io/helm-chart-sonarqube
+    targetRevision: {{ .Values.sonarqube.targetRevision }}
+    helm:
+      values: |
+        {{ .Values.sonarqube.values | toYaml | indent 8 | trim }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.sonarqube.namespace | default "sonarqube" }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      jsonPointers:
+        - /data
+{{- end }}

@@ -106,3 +106,60 @@ externalSecrets:
       name: "external-secrets"
       annotations:
         eks.amazonaws.com/role-arn: "fake_irsa_role_arn"
+
+sonarqube:
+  enable: false
+  targetRevision: "2025.1.0"
+  namespace: sonarqube
+  values:
+    edition: "enterprise"
+    monitoringPasscodeSecretName: "sonarqube-monitoring"
+    monitoringPasscodeSecretKey: "passcode"
+    resources:
+      requests:
+        cpu: 400m
+        memory: 2048M
+      limits:
+        cpu: 2000m
+        memory: 8192M
+    persistence:
+      enabled: false
+    postgresql:
+      enabled: false
+    jdbcOverwrite:
+      enabled: true
+      jdbcUrl: "jdbc:postgresql://YOUR-RDS-ENDPOINT:5432/sonarqube"
+      jdbcUsername: "sonarqube"
+      jdbcSecretName: "sonarqube-jdbc"
+      jdbcSecretPasswordKey: "password"
+    initSysctl:
+      enabled: true
+      vmMaxMapCount: 524288
+      fsFileMax: 131072
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - name: "sonar.example.com"
+          path: /
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "64m"
+    service:
+      type: ClusterIP
+      externalPort: 9000
+
+# ===========================================
+# Actions Runner Controller (ARC)
+# ===========================================
+arc:
+  enable: false
+  controller:
+    targetRevision: "0.9.3"
+  runners:
+    targetRevision: "0.9.3"
+    githubConfigUrl: "https://github.com/trugosoftwareTeam"
+    runnerScaleSetName: "arc-runner-set"
+    minRunners: 0
+    maxRunners: 5
+    storageClass: "gp2"
+    storageSize: "10Gi"

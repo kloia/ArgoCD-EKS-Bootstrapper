@@ -1,0 +1,80 @@
+{{- if .Values.arc.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: arc-runners
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "8"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: gha-runner-scale-set
+    repoURL: ghcr.io/actions/actions-runner-controller-charts
+    targetRevision: {{ .Values.arc.runners.targetRevision }}
+    helm:
+      valuesObject:
+        githubConfigUrl: {{ .Values.arc.runners.githubConfigUrl | quote }}
+        githubConfigSecret: arc-github-app
+        runnerScaleSetName: {{ .Values.arc.runners.runnerScaleSetName | default "arc-runner-set" }}
+        minRunners: {{ .Values.arc.runners.minRunners | default 0 }}
+        maxRunners: {{ .Values.arc.runners.maxRunners | default 5 }}
+        runnerGroup: "default"
+        containerMode:
+          type: "kubernetes"
+          kubernetesModeWorkVolumeClaim:
+            accessModes: ["ReadWriteOnce"]
+            storageClassName: {{ .Values.arc.runners.storageClass | default "gp2" | quote }}
+            resources:
+              requests:
+                storage: {{ .Values.arc.runners.storageSize | default "10Gi" }}
+        template:
+          spec:
+            securityContext:
+              fsGroup: 1001
+            containers:
+              - name: runner
+                image: ghcr.io/actions/actions-runner:latest
+                command: ["/home/runner/run.sh"]
+                env:
+                  - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+                    value: "false"
+                resources:
+                  limits:
+                    cpu: 2000m
+                    memory: 4Gi
+                  requests:
+                    cpu: 500m
+                    memory: 1Gi
+        controllerServiceAccount:
+          namespace: actions-runner-system
+          name: arc-controller-gha-rs-controller
+        listenerTemplate:
+          spec:
+            containers:
+              - name: listener
+                resources:
+                  limits:
+                    cpu: 200m
+                    memory: 256Mi
+                  requests:
+                    cpu: 100m
+                    memory: 128Mi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: actions-runner-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  ignoreDifferences:
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      jqPathExpressions:
+        - .spec.preserveUnknownFields
+{{- end }}
