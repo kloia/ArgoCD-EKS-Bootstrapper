@@ -28,6 +28,7 @@ metricsServer:
       enabled: true
 certManager:
   enable: true
+  targetRevision: "v1.13.2"
   values:
     installCRDs: "true"
     prometheus:
