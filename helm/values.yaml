@@ -30,11 +30,11 @@ certManager:
   enable: true
   targetRevision: "v1.13.2"
   values:
-    installCRDs: "true"
+    installCRDs: true
     prometheus:
       servicemonitor:
-        enabled: "false"
-        honorLabels: "false"
+        enabled: false
+        honorLabels: false
 rancher:
   enable: false
   targetRevision: v2.7.9
