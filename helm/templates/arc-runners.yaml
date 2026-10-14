@@ -36,7 +36,7 @@ spec:
               fsGroup: 1001
             containers:
               - name: runner
-                image: ghcr.io/actions/actions-runner:latest
+                image: {{ .Values.arc.runners.image | default "ghcr.io/actions/actions-runner:latest" | quote }}
                 command: ["/home/runner/run.sh"]
                 env:
                   - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER

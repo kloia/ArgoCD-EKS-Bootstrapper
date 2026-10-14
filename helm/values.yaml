@@ -160,6 +160,7 @@ arc:
     targetRevision: "0.9.3"
     githubConfigUrl: "https://github.com/trugosoftwareTeam"
     runnerScaleSetName: "arc-runner-set"
+    image: "ghcr.io/actions/actions-runner:latest"
     minRunners: 0
     maxRunners: 5
     storageClass: "gp2"
